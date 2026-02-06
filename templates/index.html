@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>ClickShop1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXe4jv8hJ44ndLWxhwruBp1tYUB_Kn4UeXnQ&s" alt="Logo">
+    <h1>ClickShop1</h1>
+</header>
+
+<section class="products">
+    {% for product in products %}
+        <div class="product">
+            <h2>{{ product.name }}</h2>
+            <p>Prix : {{ product.price }} €</p>
+            <a href="/add_to_cart/{{ product.id }}">
+                <button>Ajouter au panier</button>
+            </a>
+        </div>
+    {% endfor %}
+</section>
+
+<div style="text-align: center; margin-bottom: 20px;">
+    <a href="/panier">
+        <button>Voir le panier</button>
+    </a>
+</div>
+
+<footer>
+    <p>Adresse : Colobane</p>
+    <p>Email : diatto23@gmail.com</p>
+    <p>Contact : 773452087</p>
+</footer>
+
+</body>
+</html>
+

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Produits - ClickShop1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header>
+    <h1>Nos produits</h1>
+</header>
+
+<section class="products">
+    {% for product in products %}
+        <div class="product">
+            <h2>{{ product['name'] }}</h2>
+            <p>{{ product['description'] }}</p>
+            <p>{{ product['price'] }} €</p>
+
+            <!-- Formulaire pour ajouter un produit au panier -->
+            <form action="{{ url_for('ajouter_panier') }}" method="POST">
+                <input type="hidden" name="product_id" value="{{ product['id'] }}">
+                <button type="submit">Ajouter au panier</button>
+            </form>
+        </div>
+    {% endfor %}
+</section>
+
+<div style="text-align:center; margin-top: 20px;">
+    <a href="/panier">
+        <button>Voir le panier</button>
+    </a>
+</div>
+
+</body>
+</html>

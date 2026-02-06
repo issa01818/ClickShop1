@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Panier - ClickShop1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<header>
+    <h1>Votre panier</h1>
+</header>
+
+<section class="products">
+    {% for product in products %}
+        <div class="product">
+            <h2>{{ product['name'] }}</h2>
+            <p>{{ product['price'] }} €</p>
+        </div>
+    {% endfor %}
+</section>
+
+<h2 style="text-align:center;">Total : {{ total }} €</h2>
+
+<div style="text-align:center; margin-top: 20px;">
+    {% if products %}
+        <form action="{{ url_for('commander') }}" method="POST">
+            <button type="submit">Commander</button>
+        </form>
+    {% endif %}
+</div>
+
+<div style="text-align:center; margin-top: 20px;">
+    <a href="{{ url_for('produits') }}">
+        <button>Retour à la boutique</button>
+    </a>
+</div>
+
+</body>
+</html>
+
