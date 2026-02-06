@@ -1,5 +1,4 @@
 acme==1.21.0
-apturl==0.5.2
 asgiref==3.10.0
 bandit==1.9.2
 bcrypt==5.0.0
@@ -109,3 +108,4 @@ zope.component==4.3.0
 zope.event==4.4
 zope.hookable==5.1.0
 zope.interface==5.4.0
+
