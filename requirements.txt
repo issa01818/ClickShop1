@@ -12,4 +12,5 @@ SQLAlchemy==2.0.46
 requests==2.32.5
 pytest==8.4.2
 gunicorn==20.1.0
+python-dotenv==1.0.0  # ou la dernière version disponible
 
