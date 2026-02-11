@@ -14,8 +14,8 @@
 <section class="products">
     {% for product in products %}
         <div class="product">
-            <h2>{{ product['name'] }}</h2>
-            <p>{{ product['price'] }} €</p>
+            <h2>{{ product.name }}</h2>
+            <p>{{ product.price }} €</p>
         </div>
     {% endfor %}
 </section>
@@ -25,12 +25,14 @@
 <div style="text-align:center; margin-top: 20px;">
     {% if products %}
         <form action="{{ url_for('commander') }}" method="POST">
+            <!-- Champ caché pour envoyer le jeton CSRF -->
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
             <button type="submit">Commander</button>
         </form>
     {% endif %}
 </div>
 
-<div style="text-align:center; margin-top: 20px;">
+<div style="text-align:center; margin-top: 20px;">                          
     <a href="{{ url_for('produits') }}">
         <button>Retour à la boutique</button>
     </a>

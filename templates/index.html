@@ -17,20 +17,23 @@
         <div class="product">
             <h2>{{ product.name }}</h2>
             <p>Prix : {{ product.price }} €</p>
-            <a href="/add_to_cart/{{ product.id }}">
-                <button>Ajouter au panier</button>
-            </a>
+            <!-- Formulaire pour ajouter au panier -->
+            <form action="{{ url_for('add_to_cart', id=product.id) }}" method="POST">
+                <!-- Champ caché pour envoyer le jeton CSRF -->
+                <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+                <button type="submit">Ajouter au panier</button>
+            </form>
         </div>
     {% endfor %}
 </section>
 
 <div style="text-align: center; margin-bottom: 20px;">
-    <a href="/panier">
+    <a href="{{ url_for('panier') }}">
         <button>Voir le panier</button>
     </a>
 </div>
 
-<footer>
+<footer> 
     <p>Adresse : Colobane</p>
     <p>Email : diatto23@gmail.com</p>
     <p>Contact : 773452087</p>
