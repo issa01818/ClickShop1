@@ -2,13 +2,13 @@ Flask==3.1.2
 Flask-Bcrypt==1.0.1
 Flask-Login==0.6.3
 Flask-SQLAlchemy==3.1.1
-Flask-WTF==1.1.1          # pour CSRF
+Flask-WTF==1.1.1         # CSRF protection
 gunicorn==20.1.0
 Jinja2==3.1.6
 Werkzeug==3.1.5
 itsdangerous==2.2.0
 requests==2.32.5
 SQLAlchemy==2.0.46
-python-dotenv==1.2.1      # pour config d'environnement
-setuptools==65.5.0
+python-dotenv==1.2.1    # Pour gérer les variables d'environnement
+setuptools==65.5.0      # Pour éviter des problèmes d'installation de certaines dépendances
 
