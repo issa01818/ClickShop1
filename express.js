@@ -1,54 +1,46 @@
 const express = require('express');
-const session = require('express-session');
-const csrf = require('csurf');  // Middleware pour la protection CSRF
 const app = express();
+const path = require('path');
+const session = require('express-session');
 
-// Middleware pour gérer les sessions utilisateur
-app.use(session({
-  secret: 'secret-key',  // Utilise une clé secrète unique et aléatoire pour ta session
-  resave: false,
-  saveUninitialized: true
-}));
+// Importer la configuration de sécurité
+const securityConfig = require('./securityConfig'); // Importer les configurations de sécurité
 
-// Middleware pour gérer les jetons CSRF
-const csrfProtection = csrf();
-app.use(csrfProtection);
+// Configurer la sécurité pour l'ensemble de l'application
+securityConfig(app);
 
 // Middleware pour parser les données POST (si tu utilises des formulaires)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Exemple de route pour afficher les produits (index.html)
-app.get('/produits', (req, res) => {
-  // Exemple de produits, à remplacer par des données réelles
-  const products = [
-    { id: 1, name: 'Produit A', price: 20 },
-    { id: 2, name: 'Produit B', price: 35 }
-  ];
+// Configurer le moteur de template (si tu utilises EJS par exemple)
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-  // Envoyer les produits et le jeton CSRF à la vue (ici, avec EJS comme moteur de templates)
+// Exemple de produits, à remplacer par des données réelles
+const products = [
+  { id: 1, name: 'Produit A', price: 20 },
+  { id: 2, name: 'Produit B', price: 35 },
+];
+
+// Route principale pour afficher les produits (index.html)
+app.get('/produits', (req, res) => {
   res.render('index', { products: products, csrfToken: req.csrfToken() });
 });
 
-// Exemple de route pour afficher le panier (panier.html)
+// Route pour afficher le panier (panier.html)
 app.get('/panier', (req, res) => {
-  // Exemple de panier
-  const products = [
-    { name: 'Produit A', price: 20 },
-    { name: 'Produit B', price: 35 }
-  ];
   const total = products.reduce((sum, product) => sum + product.price, 0);
-
   res.render('panier', { products: products, total: total, csrfToken: req.csrfToken() });
 });
 
-// Exemple de route POST pour "commander"
+// Route POST pour commander
 app.post('/commander', (req, res) => {
   // Logique pour traiter la commande
   res.send('Commande reçue !');
 });
 
-// Route POST pour ajouter un produit au panier (on suppose qu'une logique pour gérer ça est ajoutée)
+// Route POST pour ajouter un produit au panier
 app.post('/add_to_cart/:id', (req, res) => {
   // Logique pour ajouter un produit au panier (en fonction de l'ID du produit)
   res.redirect('/panier');
