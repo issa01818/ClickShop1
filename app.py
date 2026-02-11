@@ -30,8 +30,7 @@ def init_db():
     CREATE TABLE IF NOT EXISTS products (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        price REAL NOT NULL,
-        description TEXT
+        price REAL NOT NULL,         description TEXT
     )
     ''')
 
@@ -162,7 +161,7 @@ def ajouter_panier():
 
     product_id = int(request.form["product_id"])  # Convertir en entier pour correspondre à la base de données
     session["cart"].append(product_id)
-
+    
     return redirect(url_for("produits"))
 
 # Route pour afficher le panier
@@ -232,5 +231,7 @@ def commande_confirmation():
     return render_template("commande_confirmation.html")
 
 if __name__ == "__main__":
-    app.run(debug=False, port=5008)
+    # Port dynamique pour Render
+    port = int(os.environ.get("PORT", 5000))  # Défaut à 5000 si PORT n'est pas défini
+    app.run(debug=False, host='0.0.0.0', port=port)
 
